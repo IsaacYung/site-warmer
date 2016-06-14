@@ -4,7 +4,8 @@ class Notifier
   end
 
   def notify_slack
-    return if Rails.application.secrets.notify_channel.nil?
+    target = ENV["NOTIFY_CHANNEL"]
+    return if target.nil?
 
     message = "Acabei de aquecer o cache: " \
               " passei por #{@result.total_urls} urls," \
@@ -12,7 +13,7 @@ class Notifier
               " e demorei #{@result.duration.to_i} segundos para executar :)"
 
     client = Slack::Web::Client.new
-    client.chat_postMessage(channel: Rails.application.secrets.notify_channel,
+    client.chat_postMessage(channel: target,
                             text: message,
                             as_user: true)
   end
