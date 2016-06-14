@@ -1,8 +1,7 @@
 class CacheWarmerController < ApplicationController
   def create
     if sitemap_url.present?
-      warmer = CacheWarmer.new
-      warmer.warm(sitemap_url)
+      CacheWarmerJob.perform_later(sitemap_url)
     else
       Rails.logger.warn 'Sitemap url not provided'
     end
