@@ -1,10 +1,7 @@
 class CacheWarmer
   def warm(sitemap_url)
     start_time = Time.now
-    Rails.logger.info 'Starting cacher'
-
     urls = SiteMap.new(sitemap_url).urls
-    Rails.logger.info "#{urls.length} found, starting requests..."
 
     requester = Requester.new
     urls.each_with_index do |url, i|
@@ -12,7 +9,11 @@ class CacheWarmer
       requester.get(url)
     end
 
-    Rails.logger.info 'Job completed, ' \
-                      "#{Time.now - start_time} seconds elapsed"
+    result = WarmResult.new
+    result.entry_point = sitemap_url
+    result.duration = Time.now - start_time
+    result.total_urls = urls.length
+
+    result
   end
 end
