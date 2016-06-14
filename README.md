@@ -5,6 +5,7 @@ A simple application to hit a get into all pages of website, to keep the cache w
 ###Requirements
 
 - Ruby 2.3
+- Redis
 - Gem bundler: `gem install bundler`
 
 ###Running
@@ -27,6 +28,12 @@ Start the webserver
 
 ```
 bin/rails s
+```
+
+Start the queue backend
+
+```
+bundle exec sidekiq
 ```
 
 ###Using
