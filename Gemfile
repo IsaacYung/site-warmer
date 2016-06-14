@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.2'
 gem 'pg'
 gem 'unicorn'
+gem 'sidekiq'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
