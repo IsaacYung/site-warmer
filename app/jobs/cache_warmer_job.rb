@@ -5,7 +5,7 @@ class CacheWarmerJob < ActiveJob::Base
     warmer = CacheWarmer.new
     result = warmer.warm(url)
 
-    notifier = Notifier.new(result)
-    notifier.notify_slack
+    #notifier = Notifier.new(result)
+    #notifier.notify_slack
   end
 end
