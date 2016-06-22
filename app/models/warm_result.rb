@@ -1,3 +1,3 @@
-class WarmResult
-  attr_accessor :duration, :total_urls, :entry_point
+class WarmResult < ActiveRecord::Base
+
 end
