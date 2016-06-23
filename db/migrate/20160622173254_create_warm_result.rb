@@ -4,7 +4,9 @@ class CreateWarmResult < ActiveRecord::Migration
       t.string :entry_point, null: false
       t.integer :total_urls, null: false
       t.integer :duration, null: false
-      t.string :cold_urls, null: false, array: true
+      t.string :cold_urls, null: true, array: true
+
+      t.timestamps
     end
   end
 end

@@ -17,10 +17,12 @@ ActiveRecord::Schema.define(version: 20160622173254) do
   enable_extension "plpgsql"
 
   create_table "warm_results", force: :cascade do |t|
-    t.string  "entry_point", null: false
-    t.integer "total_urls",  null: false
-    t.integer "duration",    null: false
-    t.string  "cold_urls",   null: false, array: true
+    t.string   "entry_point", null: false
+    t.integer  "total_urls",  null: false
+    t.integer  "duration",    null: false
+    t.string   "cold_urls",   null: false, array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
