@@ -39,7 +39,7 @@ class SlackResponseParser
       "<@#{data.user}> #{when_cache_warmed_message}"
     when /cache(.*)(quente|frio)(.*)?/
       "<@#{data.user}> #{summarized_message}"
-    when /^quais(.*)frias(.*)?/
+    when /^(quais|tinha alguma|tem alguma)(.*)fria(.*)?/
       "<@#{data.user}> #{which_urls_message}"
     when /detalhes|info(.*)/
       "<@#{data.user}> #{complete_message}"
@@ -70,7 +70,7 @@ class SlackResponseParser
         "- #{last_warm.cold_urls.join("\n- ")}"
       end
     else
-      "Nenhuma estava fria"
+      "Nenhuma :simple_smile:"
     end
   end
 
