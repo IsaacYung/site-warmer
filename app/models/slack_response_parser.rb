@@ -58,7 +58,7 @@ class SlackResponseParser
   end
 
   def which_urls_message
-    if last_warm.cold_urls.length
+    if last_warm.cold_urls.present? && last_warm.cold_urls.length
       "Essas (foram aquecidas em #{parsed_date(last_warm.created_at)}):\n" \
       "- #{last_warm.cold_urls.join("\n- ")}"
     else
