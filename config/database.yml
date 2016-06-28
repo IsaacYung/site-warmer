@@ -9,3 +9,7 @@ development:
 test:
   <<: *default
   url: postgresql://localhost/ws_test?user=dev&password=dev
+
+production:
+  <<: *default
+  url: <%= ENV['DB'] %>
