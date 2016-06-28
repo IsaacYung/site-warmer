@@ -49,7 +49,7 @@ class SlackResponseParser
   end
 
   def summarized_message
-    "Da ultima vez que esquentei, tinha #{last_warm.cold_urls.length} urls frias"
+    "Da ultima vez que esquentei, tinha #{total_cold_urls} urls frias"
   end
 
   def when_cache_warmed_message
@@ -61,7 +61,7 @@ class SlackResponseParser
     if last_warm.cold_urls.present? && last_warm.cold_urls.length
       url_limit = 20
       if last_warm.cold_urls.length > url_limit
-        "Um monte (#{last_warm.cold_urls.length} :fearful:), " \
+        "Um monte (#{total_cold_urls} :fearful:), " \
         "segue as *#{url_limit}* primeiras " \
         "_(foram aquecidas em #{parsed_date(last_warm.created_at)})_:\n" \
         "- #{last_warm.cold_urls[0..url_limit].join("\n- ")}"
@@ -77,7 +77,7 @@ class SlackResponseParser
   def complete_message
     "Esquentei o cache em #{parsed_date(last_warm.created_at)}, " \
       "passei por *#{last_warm.total_urls}* urls, " \
-      "das quais *#{last_warm.cold_urls.length}* estavam frias." \
+      "das quais *#{total_cold_urls}* estavam frias." \
       " Demorei #{last_warm.duration} segundos para executar o processo"
   end
 
@@ -95,5 +95,9 @@ class SlackResponseParser
 
   def parsed_date(date)
     date.strftime('%d de %b, às %Hh%M')
+  end
+
+  def total_cold_urls
+    last_warm.cold_urls.present? ? last_warm.cold_urls.length : 0
   end
 end
