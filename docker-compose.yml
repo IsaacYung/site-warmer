@@ -2,7 +2,7 @@ db:
   image: postgres:9.4.5
   environment:
     POSTGRES_USER: postgre
-    POSTGRES_PASSWORD: postgre
+    POSTGRES_PASSWORD: '${DBPASS}'
   ports:
     - '5432:5432'
   volumes:
@@ -21,7 +21,7 @@ warmer:
     - db
     - redis
   environment:
-    DB: postgresql://postgre:postgre@db:5432/warmer?encoding=utf8&pool=5&timeout=5000
+    DB: 'postgresql://postgre:${DBPASS}@db:5432/warmer?encoding=utf8&pool=5&timeout=5000'
     SLACK_TOKEN: '${SLACK_TOKEN}'
     SITEMAP: '${SITEMAP}'
     JOB_WORKER_URL: redis://redis:6379/0
