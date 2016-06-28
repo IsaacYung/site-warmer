@@ -41,7 +41,7 @@ class SlackResponseParser
       "<@#{data.user}> #{summarized_message}"
     when /^(quais|tinha alguma|tem alguma)(.*)fria(.*)?/
       "<@#{data.user}> #{which_urls_message}"
-    when /detalhes|info(.*)/
+    when /detalhes|info|status(.*)/
       "<@#{data.user}> #{complete_message}"
     else
       "<@#{data.user}> não entendi o que você quer"
