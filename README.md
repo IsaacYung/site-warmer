@@ -4,10 +4,7 @@ A simple application to hit a `get` into all pages of website, to keep the websi
 
 ###Requirements
 
-- Ruby 2.3
-- Redis
-- Gem bundler: `gem install bundler`
-- Gem foreman: `gem install foreman`
+- Docker
 
 ###Running
 
@@ -17,24 +14,18 @@ Clone this repository
 git clone git@github.com:renatomenegasso/site-warmer.git site-warmer
 ```
 
-Install dependencies
+Run docker composer:
 
 ```
-bundle install
+SLACK_TOKEN=223232 SITEMAP=https://www.uol.com.br/sitemap.xml docker-compose up
 ```
 
-Export the needed env variables:
+Env variables needed:
 
 - `SITEMAP`: url of sitemap containing urls to hit
 - `SLACK_TOKEN`: the token of slack bot
 
-Start the services
+When you start the `docker-compose`, the slack bot will be available and the site warmer will be run into every 50 minutes
 
-```
-foreman start
-```
-
-
-###Using
-
-Just start the processes with the given env variables. The job will warm the website every 50 minutes, and store the result. If you use cloudflare, the _cold urls_ will be stored.
+###Development
+[TODO]
