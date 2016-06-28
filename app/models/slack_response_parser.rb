@@ -59,8 +59,16 @@ class SlackResponseParser
 
   def which_urls_message
     if last_warm.cold_urls.present? && last_warm.cold_urls.length
-      "Essas (foram aquecidas em #{parsed_date(last_warm.created_at)}):\n" \
-      "- #{last_warm.cold_urls.join("\n- ")}"
+      url_limit = 20
+      if last_warm.cold_urls.length > url_limit
+        "Um monte (#{last_warm.cold_urls.length} :fearful:), " \
+        "segue as *#{url_limit}* primeiras " \
+        "_(foram aquecidas em #{parsed_date(last_warm.created_at)})_:\n" \
+        "- #{last_warm.cold_urls[0..url_limit].join("\n- ")}"
+      else
+        "Essas (foram aquecidas em #{parsed_date(last_warm.created_at)}):\n" \
+        "- #{last_warm.cold_urls.join("\n- ")}"
+      end
     else
       "Nenhuma estava fria"
     end
@@ -86,6 +94,6 @@ class SlackResponseParser
   end
 
   def parsed_date(date)
-    date.strftime('%d de %b, às %H:%M')
+    date.strftime('%d de %b, às %Hh%M')
   end
 end
