@@ -6,7 +6,7 @@ class CacheWarmer
     requester = Requester.new
 
     warm_result = WarmResult.new
-    result.entry_point = sitemap_url
+    warm_result.entry_point = sitemap_url
 
     urls.each_with_index do |url, i|
       Rails.logger.info "GET #{url} (#{i.percent_of(urls.length)}% done)"
