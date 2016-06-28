@@ -86,6 +86,6 @@ class SlackResponseParser
   end
 
   def parsed_date(date)
-    date.strftime('%m de %b, às %H:%M')
+    date.strftime('%d de %b, às %H:%M')
   end
 end
