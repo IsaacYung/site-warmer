@@ -7,7 +7,7 @@ class CacheWarmerJob < ActiveJob::Base
     result.save
 
     if recursive
-      CacheWarmerJob.set(wait: 50.minutes).perform_later(url, true)
+      CacheWarmerJob.set(wait: 20.minutes).perform_later(url, true)
     end
   end
 end
