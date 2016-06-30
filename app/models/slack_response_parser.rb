@@ -86,7 +86,9 @@ class SlackResponseParser
   end
 
   def last_warm
-    @last_warm ||= WarmResult.last
+    Rails.cache.fetch("last_warm", expires_in: 1.minute) do
+      WarmResult.last
+    end
   end
 
   def without_user(message)
