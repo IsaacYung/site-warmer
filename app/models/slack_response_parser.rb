@@ -87,7 +87,7 @@ class SlackResponseParser
 
   def last_warm
     Rails.cache.fetch("last_warm", expires_in: 1.minute) do
-      WarmResult.last
+      WarmResult.last.reload
     end
   end
 
