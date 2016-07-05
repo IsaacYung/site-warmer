@@ -6,6 +6,6 @@ class RandomMessage
   end
 
   def self.should_send?(percent)
-    (0..percent).include?((rand * 100).to_i)
+    (0..percent).include?((rand * 1000).to_i)
   end
 end

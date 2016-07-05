@@ -9,7 +9,7 @@ class SlackResponseParser
       @client.message channel: data.channel, text: message(data)
     end
 
-    if RandomMessage.should_send?(3)
+    if RandomMessage.should_send?(1)
       @client.message channel: data.channel, text: RandomMessage.some_sentence
     end
   end
