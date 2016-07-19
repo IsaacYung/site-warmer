@@ -1,10 +1,6 @@
 class CacheWarmerJob < ActiveJob::Base
   queue_as :default
 
-  rescue_from(OpenSSL::SSL::SSLError) do
-    retry_job queue: :default
-  end
-
   def perform(url, recursive=false)
     warmer = CacheWarmer.new
     result = warmer.warm(url)
@@ -13,5 +9,7 @@ class CacheWarmerJob < ActiveJob::Base
     if recursive
       CacheWarmerJob.perform_later(url, true)
     end
+  rescue e
+    CacheWarmerJob.perform_later(url, recursive)
   end
 end
