@@ -10,8 +10,14 @@ class CacheWarmer
 
     urls.each_with_index do |url, i|
       Rails.logger.info "GET #{url} (#{i.percent_of(urls.length)}% done)"
-      response = requester.get(url)
-      warm_result.append_cold_url(url) if cold?(response)
+
+      response_desktop = requester.get(url, Requester::DESKTOP)
+      response_mobile = requester.get(url, Requester::MOBILE)
+      response_tablet = requester.get(url, Requester::TABLET)
+
+      warm_result.append_cold_desktop_url(url) if cold?(response_desktop)
+      warm_result.append_cold_mobile_url(url) if cold?(response_mobile)
+      warm_result.append_cold_tablet_url(url) if cold?(response_tablet)
     end
 
     warm_result.duration = Time.now - start_time

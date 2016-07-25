@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622173254) do
+ActiveRecord::Schema.define(version: 20160725011751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "warm_results", force: :cascade do |t|
-    t.string   "entry_point", null: false
-    t.integer  "total_urls",  null: false
-    t.integer  "duration",    null: false
-    t.string   "cold_urls",   null: false, array: true
+    t.string   "entry_point",      null: false
+    t.integer  "total_urls",       null: false
+    t.integer  "duration",         null: false
+    t.string   "cold_urls",        null: false, array: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cold_mobile_urls",              array: true
+    t.string   "cold_tablet_urls",              array: true
   end
 
 end
