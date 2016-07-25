@@ -76,9 +76,11 @@ class SlackResponseParser
 
   def complete_message
     "Esquentei o cache em #{parsed_date(last_warm.created_at)}, " \
-      "passei por *#{last_warm.total_urls}* urls, " \
-      "das quais *#{total_cold_urls}* estavam frias." \
-      " Demorei #{last_warm.duration} segundos para executar o processo"
+      "passei por *#{last_warm.total_urls}* urls. \n " \
+      "*#{total_cold_urls_desktop}* estavam frias em desktop, " \
+      "*#{total_cold_urls_mobile}* estavam frias em mobile e " \
+      "*#{total_cold_urls_tablet}* estavam frias em tablet." \
+      "\nDemorei #{last_warm.duration} segundos para executar o processo"
   end
 
   def no_warm_message
@@ -100,6 +102,18 @@ class SlackResponseParser
   end
 
   def total_cold_urls
+    total_cold_urls_desktop + total_cold_urls_mobile + total_cold_urls_tablet
+  end
+
+  def total_cold_urls_desktop
     last_warm.cold_urls.present? ? last_warm.cold_urls.length : 0
+  end
+
+  def total_cold_urls_mobile
+    last_warm.cold_mobile_urls.present? ? last_warm.cold_mobile_urls.length : 0
+  end
+
+  def total_cold_urls_tablet
+    last_warm.cold_tablet_urls.present? ? last_warm.cold_tablet_urls.length : 0
   end
 end
