@@ -1,6 +1,6 @@
 module Wordpress
-  class UrlLoader
-    def self.load
+  class Loader
+    def self.urls
       (posts_urls + redirects + terms + specials).map do |obj|
         url = obj.to_s
         if url[0..3] == 'http'
