@@ -9,7 +9,8 @@ class CacheWarmerJob < ActiveJob::Base
     if recursive
       CacheWarmerJob.perform_later(url, true)
     end
-  rescue e
+  rescue => e
+    Rails.logger.info e
     CacheWarmerJob.perform_later(url, recursive)
   end
 end
