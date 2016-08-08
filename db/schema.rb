@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160725011751) do
     t.string   "entry_point",      null: false
     t.integer  "total_urls",       null: false
     t.integer  "duration",         null: false
-    t.string   "cold_urls",        null: false, array: true
+    t.string   "cold_urls",                     array: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cold_mobile_urls",              array: true
