@@ -13,3 +13,28 @@ test:
 production:
   <<: *default
   url: <%= ENV['DB'] %>
+
+wordpress: &wordpress
+  adapter: mysql2
+  encoding: utf8
+
+wordpress_development:
+  <<: *wordpress
+  host: localhost
+  database: wordpress_db
+  username: root
+  password:
+
+wordpress_test:
+  <<: *wordpress
+  host: localhost
+  database: wordpress_test
+  username: root
+  password:
+
+wordpress_production:
+  <<: *wordpress
+  host: <%= ENV['WP_DB_HOST'] %>
+  database: <%= ENV['WP_DB_SCHEMA'] %>
+  username: <%= ENV['WP_DB_USER'] %>
+  password: <%= ENV['WP_DB_PASS'] %>
