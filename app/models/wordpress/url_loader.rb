@@ -1,7 +1,7 @@
 module Wordpress
   class UrlLoader
     def self.load
-      (posts_urls + redirects + terms).map do |obj|
+      (posts_urls + redirects + terms + specials).map do |obj|
         url = obj.to_s
         if url[0..3] == 'http'
           url
@@ -21,6 +21,10 @@ module Wordpress
 
     def self.terms
       Wordpress::Term.all
+    end
+
+    def self.specials
+      ['/robots.txt', '/', '/sitemap.xml']
     end
   end
 end
