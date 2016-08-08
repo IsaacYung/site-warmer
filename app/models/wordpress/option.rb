@@ -3,7 +3,7 @@ module Wordpress
     establish_connection :"wordpress_#{Rails.env}"
     self.table_name = 'wp_options'
 
-    def self.redirects
+    def self.yoast_redirects
       Rails.cache.fetch('redirects', expires_in: 1.minute) do
         redirects = Wordpress::Option
                       .find_by_sql('select option_value from wp_options where' \

@@ -16,7 +16,7 @@ module Wordpress
     end
 
     def self.redirects
-      Wordpress::Option.redirects
+      Wordpress::Option.yoast_redirects
     end
 
     def self.terms
