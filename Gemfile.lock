@@ -70,10 +70,12 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multipart-post (2.0.0)
+    mysql2 (0.4.2)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     pg (0.18.4)
+    php_serialize (1.2)
     pkg-config (1.1.7)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -150,7 +152,9 @@ PLATFORMS
 DEPENDENCIES
   eventmachine
   faye-websocket
+  mysql2
   pg
+  php_serialize
   pry
   pry-nav
   rails (= 4.2.5.2)
@@ -160,4 +164,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
