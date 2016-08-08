@@ -1,7 +1,7 @@
 class CacheWarmer
   def warm(sitemap_url)
     start_time = Time.now
-    urls = SiteMap.new(sitemap_url).urls
+    urls = SiteMap::Loader.new(sitemap_url).urls
 
     requester = Requester.new
 
