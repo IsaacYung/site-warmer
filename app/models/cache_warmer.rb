@@ -1,8 +1,8 @@
 class CacheWarmer
-  def warm(sitemap_url)
-    start_time = Time.now
-    urls = SiteMap::Loader.new(sitemap_url).urls
+  def warm(sitemap_url = nil)
+    @sitemap_url = sitemap_url
 
+    start_time = Time.now
     requester = Requester.new
 
     warm_result = WarmResult.new
@@ -27,6 +27,24 @@ class CacheWarmer
   end
 
   private
+
+  def urls
+    @urls ||= build_urls
+  end
+
+  def build_urls
+    urls = []
+
+    if SiteMap.enabled?
+      urls += SiteMap::Loader.new(@sitemap_url).urls
+    end
+
+    if Wordpress.enabled?
+      urls += Wordpress::Loader.urls
+    end
+
+    urls.uniq
+  end
 
   def cold?(response)
     response['cf-cache-status'] != 'HIT'
