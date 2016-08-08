@@ -10,7 +10,7 @@ class WarmResult < ActiveRecord::Base
   end
 
   def append_cold_tablet_url(url)
-    self.append_cold_tablet_url ||= []
-    self.append_cold_tablet_url << url
+    self.cold_tablet_urls ||= []
+    self.cold_tablet_urls << url
   end
 end
