@@ -14,5 +14,9 @@ module Wordpress
         PHP::unserialize(redirects).keys
       end
     end
+
+    def self.domain
+      @domain ||= Wordpress::Option.where(option_name: 'home').first.option_value
+    end
   end
 end
