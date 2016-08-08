@@ -5,8 +5,8 @@ module Wordpress
 
     def self.all
       @posts ||= Wordpress::Post
-                 .find_by_sql('select ID, post_name, post_parent from wp_posts' \
-                              ' where post_status = "publish"')
+                 .find_by_sql('select ID, post_name, post_parent, post_type' \
+                              ' from wp_posts where post_status = "publish"')
     end
 
     def self.posts_map
@@ -26,6 +26,11 @@ module Wordpress
       while current
         path_data.unshift(current.post_name)
         current = Wordpress::Post.posts_map[current.post_parent]
+      end
+
+      # FIXME: post type slug hardcoded
+      if post_type == 'post'
+        path_data.unshift('blog')
       end
 
       "/#{path_data.join('/')}"
