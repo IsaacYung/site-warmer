@@ -19,7 +19,7 @@ module Wordpress
       map
     end
 
-    def full_path
+    def to_s
       path_data = []
       current = self
 

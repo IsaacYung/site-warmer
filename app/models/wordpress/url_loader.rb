@@ -12,8 +12,7 @@ module Wordpress
     end
 
     def self.posts_urls
-      posts = Wordpress::Post.all
-      posts.map(&:full_path)
+      Wordpress::Post.all
     end
 
     def self.redirects
