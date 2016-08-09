@@ -6,7 +6,8 @@ module Wordpress
     def self.all
       @posts ||= Wordpress::Post
                  .find_by_sql('select ID, post_name, post_parent, post_type' \
-                              ' from wp_posts where post_status = "publish"')
+                              ' from wp_posts where post_status = "publish"' \
+                              ' and post_type in ("post", "page")')
     end
 
     def self.posts_map
