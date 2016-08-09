@@ -4,7 +4,7 @@ class Requester
   TABLET = 'Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1'
 
   def get(url, user_agent = Requester::DESKTOP)
-    url = url.gsub(/[^\u0020-\u007E]/, '') # remove hidden chars
+    url = URI.encode(url.gsub(/[^\u0020-\u007E]/, '').strip) # remove hidden chars
     uri = URI.parse(url)
 
     http = Net::HTTP.new(uri.host, uri.port)
