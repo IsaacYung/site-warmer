@@ -10,8 +10,7 @@ module Wordpress
                                    ' option_name = "wpseo-premium-redirects"')
                       .first
                       .option_value
-
-        PHP::unserialize(redirects).keys
+        PHP::unserialize(redirects).select { |_url, r| r['type'] != "410" }.keys
       end
     end
 
