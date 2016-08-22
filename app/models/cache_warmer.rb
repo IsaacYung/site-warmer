@@ -1,14 +1,11 @@
 class CacheWarmer
   UAS = [Requester::DESKTOP, Requester::MOBILE, Requester::TABLET]
 
-  def warm(sitemap_url = nil)
-    @sitemap_url = sitemap_url
-
+  def warm
     start_time = Time.now
     requester = Requester.new
 
-    warm_result = WarmResult.new
-    warm_result.entry_point = sitemap_url
+    warm_result = WarmResult.new(entry_point: entrypoint)
 
     urls.each_with_index do |url, i|
       Rails.logger.info "GET #{url} (#{i.percent_of(urls.length)}% done)"
@@ -31,11 +28,18 @@ class CacheWarmer
     @urls ||= build_urls
   end
 
+  def entrypoint
+    result = []
+    result << 'sitemap' if SiteMap.enabled?
+    result << 'wordpress' if Wordpress.enabled?
+    result.join(',')
+  end
+
   def build_urls
     urls = []
 
     if SiteMap.enabled?
-      urls += SiteMap::Loader.new(@sitemap_url).urls
+      urls += SiteMap::Loader.new(SiteMap.url).urls
     end
 
     if Wordpress.enabled?

@@ -1,16 +1,16 @@
 class CacheWarmerJob < ActiveJob::Base
   queue_as :default
 
-  def perform(url, recursive=false)
+  def perform(recursive=false)
     warmer = CacheWarmer.new
-    result = warmer.warm(url)
+    result = warmer.warm
     result.save
 
     if recursive
-      CacheWarmerJob.perform_later(url, true)
+      CacheWarmerJob.perform_later(true)
     end
   rescue => e
     Rails.logger.info e
-    CacheWarmerJob.perform_later(url, recursive)
+    CacheWarmerJob.perform_later(recursive)
   end
 end
