@@ -4,7 +4,7 @@ default: &default
 
 development:
   <<: *default
-  url: postgresql://127.0.0.1/ws_development?user=dev&password=dev
+  url: <%= ENV['DB'] %>
 
 test:
   <<: *default
@@ -20,10 +20,10 @@ wordpress: &wordpress
 
 wordpress_development:
   <<: *wordpress
-  host: localhost
-  database: wordpress_db
-  username: root
-  password:
+  host: <%= ENV['WP_DB_HOST'] %>
+  database: <%= ENV['WP_DB_SCHEMA'] %>
+  username: <%= ENV['WP_DB_USER'] %>
+  password: <%= ENV['WP_DB_PASS'] %>
 
 wordpress_test:
   <<: *wordpress
