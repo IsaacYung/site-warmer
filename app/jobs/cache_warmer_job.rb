@@ -1,9 +1,9 @@
 class CacheWarmerJob < ActiveJob::Base
   queue_as :default
 
-  def perform(recursive=false)
+  def perform(recursive)
     warmer = CacheWarmer.new
-    result = warmer.warm
+    result = warmer.warm(:wordpress_pages)
     result.save
 
     if recursive

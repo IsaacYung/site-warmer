@@ -1,11 +1,16 @@
 class CacheWarmer
   UAS = [Requester::DESKTOP, Requester::MOBILE, Requester::TABLET]
+  TYPE = [:sitemap, :wordpress_pages, :wordpress_redirects]
 
-  def warm
+  def warm(type)
+    @type = type
+
     start_time = Time.now
     requester = Requester.new
 
     warm_result = WarmResult.new(entry_point: entrypoint)
+
+    Rails.logger.info "I will perform gets into #{urls.length} urls"
 
     urls.each_with_index do |url, i|
       Rails.logger.info "GET #{url} (#{i.percent_of(urls.length)}% done)"
@@ -38,12 +43,13 @@ class CacheWarmer
   def build_urls
     urls = []
 
-    if SiteMap.enabled?
+    if SiteMap.enabled? && @type == :sitemap
       urls += SiteMap::Loader.new(SiteMap.url).urls
     end
 
     if Wordpress.enabled?
-      urls += Wordpress::Loader.urls
+      urls += Wordpress::Loader.urls if @type == :wordpress_pages
+      urls += Wordpress::Loader.redirects if @type == :wordpress_redirects
     end
 
     urls.uniq

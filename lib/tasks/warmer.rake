@@ -5,6 +5,8 @@ namespace :warmer do
   task start: :environment do
     # delete all old jobs scheduled, in favor to the new one
     Sidekiq::ScheduledSet.new.clear
+
     CacheWarmerJob.perform_later(true)
+    RedirectsWarmerJob.perform_later(true)
   end
 end
