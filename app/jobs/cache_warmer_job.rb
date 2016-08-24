@@ -5,12 +5,9 @@ class CacheWarmerJob < ActiveJob::Base
     warmer = CacheWarmer.new
     result = warmer.warm(:wordpress_pages)
     result.save
-
-    if recursive
-      CacheWarmerJob.perform_later(true)
-    end
   rescue => e
     Rails.logger.info e
+  ensure
     CacheWarmerJob.perform_later(recursive)
   end
 end

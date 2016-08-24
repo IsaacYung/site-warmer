@@ -5,12 +5,9 @@ class RedirectsWarmerJob < ActiveJob::Base
     warmer = CacheWarmer.new
     result = warmer.warm(:wordpress_redirects)
     result.save
-
-    if recursive
-      RedirectsWarmerJob.perform_later(true)
-    end
   rescue => e
     Rails.logger.info e
-    RedirectsWarmerJob.perform_later(recursive)
+  ensure
+    CacheWarmerJob.perform_later(recursive)
   end
 end
